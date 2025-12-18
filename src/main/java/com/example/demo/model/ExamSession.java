@@ -40,6 +40,5 @@ public class ExamSession {
     }
     public ExamSession() {
     }
-    private students;
     
 }
