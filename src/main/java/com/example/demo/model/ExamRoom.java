@@ -1,51 +1,43 @@
 package com.example.demo.model;
 
-public class ExamRoom {
-     private Long id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-    private String roomNumber;
-    private Integer capacity;
-    private Integer rows;
-    private Integer columns;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getRoomNumber() {
-        return roomNumber;
-    }
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-    public Integer getCapacity() {
-        return capacity;
-    }
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-    public Integer getRows() {
-        return rows;
-    }
-    public void setRows(Integer rows) {
-        this.rows = rows;
-    }
-    public Integer getColumns() {
-        return columns;
-    }
-    public void setColumns(Integer columns) {
-        this.columns = columns;
-    }
-    public ExamRoom(Long id, String roomNumber, Integer capacity, Integer rows, Integer columns) {
-        this.id = id;
-        this.roomNumber = roomNumber;
-        this.capacity = capacity;
-        this.rows = rows;
-        this.columns = columns;
-    }
+@Entity
+public class ExamRoom {
+
+    @Id
+    private int roomId;
+    private String roomName;
+    private int capacity;
+
     public ExamRoom() {
     }
+
+    public ExamRoom(int roomId, String roomName, int capacity) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.capacity = capacity;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 }
-
-
