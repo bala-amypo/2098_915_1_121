@@ -11,7 +11,6 @@ public class ExamSessionServiceImpl implements ExamSessionService {
 
     private final ExamSessionRepository examSessionRepository;
 
-    // Constructor injection
     public ExamSessionServiceImpl(ExamSessionRepository examSessionRepository) {
         this.examSessionRepository = examSessionRepository;
     }
@@ -22,7 +21,7 @@ public class ExamSessionServiceImpl implements ExamSessionService {
     }
 
     @Override
-    public ExamSession getSession(Long id) {   // MATCHES INTERFACE
+    public ExamSession getSession(Long id) {
         return examSessionRepository.findById(id).orElse(null);
     }
 
