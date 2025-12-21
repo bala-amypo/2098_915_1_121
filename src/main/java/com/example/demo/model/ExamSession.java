@@ -16,6 +16,7 @@ public class ExamSession {
 private Long id;
 private String courseCode;
 private LocalDate examDate;
+
 private String examTime;
 
 
