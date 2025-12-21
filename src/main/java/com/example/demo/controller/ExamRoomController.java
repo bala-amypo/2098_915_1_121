@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.ExamRoom;
@@ -11,19 +10,19 @@ import com.example.demo.service.ExamRoomService;
 @RequestMapping("/rooms")
 public class ExamRoomController {
 
-    private final ExamRoomService service;
+    private final ExamRoomService examRoomService;
 
-    public ExamRoomController(ExamRoomService service) {
-        this.service = service;
+    public ExamRoomController(ExamRoomService examRoomService) {
+        this.examRoomService = examRoomService;
     }
 
     @PostMapping
-    public ExamRoom addRoom(@RequestBody ExamRoom room) {
-        return service.addRoom(room);
+    public ExamRoom add(@RequestBody ExamRoom room) {
+        return examRoomService.addRoom(room);
     }
 
     @GetMapping
-    public List<ExamRoom> getAllRooms() {
-        return service.getAllRooms();
+    public List<ExamRoom> getAll() {
+        return examRoomService.getAllRooms();
     }
 }
