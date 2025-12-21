@@ -9,5 +9,5 @@ import com.example.demo.model.SeatingPlan;
 
 @Repository
 public interface SeatingPlanRepository extends JpaRepository<SeatingPlan, Long> {
-List<SeatingPlan> findByExamSessionId(Long sessionId);
+List<SeatingPlan> findByExamSessionId(Long examSessionId);
 }
