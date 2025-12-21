@@ -9,5 +9,5 @@ import com.example.demo.model.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-Optional<Student> findByRolINumber(String rollNumber);
+Optional<Student> findByRollNumber(String rollNumber);
 }
