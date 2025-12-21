@@ -14,8 +14,8 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl() {
     }
 
-    // ✅ parameterized constructor (dummy – for professor requirement)
-    public UserServiceImpl(String dummy) {
+    // ✅ parameterized constructor (professor requirement)
+    public UserServiceImpl(User user) {
     }
 
     @Override
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public User getUserByEmail(String email) {
         return null;
     }
 
