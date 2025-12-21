@@ -4,7 +4,6 @@ import java.util.List;
 import com.example.demo.model.ExamRoom;
 
 public interface ExamRoomService {
-    ExamRoom save(ExamRoom session);
-    ExamRoom getById(Long id);
-    List<ExamRoom> getAll();
+    ExamRoom addRoom(ExamRoom room);
+    List<ExamRoom> getAllRooms();
 }
