@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.util.List;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "exam_sessions")
@@ -16,8 +16,9 @@ public class ExamSession {
 
     private LocalDate examDate;
 
+    // Assuming you have a Student entity
     @OneToMany(mappedBy = "examSession")
-    private List<SeatingPlan> seatingPlans; // or List<Student> students if you have Student entity
+    private List<Student> students;
 
     public ExamSession() {}
 
@@ -30,6 +31,6 @@ public class ExamSession {
     public LocalDate getExamDate() { return examDate; }
     public void setExamDate(LocalDate examDate) { this.examDate = examDate; }
 
-    public List<SeatingPlan> getSeatingPlans() { return seatingPlans; }
-    public void setSeatingPlans(List<SeatingPlan> seatingPlans) { this.seatingPlans = seatingPlans; }
+    public List<Student> getStudents() { return students; }
+    public void setStudents(List<Student> students) { this.students = students; }
 }
