@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "exam_sessions")
@@ -19,6 +20,11 @@ public class ExamSession {
 
     @Column(name = "duration")
     private Integer duration;
+
+    // 🔥 REQUIRED because services call getStudents()
+    @OneToMany
+    @JoinColumn(name = "exam_session_id")
+    private List<Student> students;
 
     public ExamSession() {
     }
@@ -53,5 +59,14 @@ public class ExamSession {
 
     public void setDuration(Integer duration) {
         this.duration = duration;
+    }
+
+    // 🔥 THIS METHOD FIXES YOUR ERROR
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }
