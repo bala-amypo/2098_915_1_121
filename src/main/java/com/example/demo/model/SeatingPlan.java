@@ -1,9 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "seating_plan")
 public class SeatingPlan {
 
     @Id
@@ -11,46 +11,32 @@ public class SeatingPlan {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "exam_session_id")
     private ExamSession examSession;
 
     @ManyToOne
-    @JoinColumn(name = "exam_room_id")
-    private ExamRoom examRoom;
+    private ExamRoom room;
 
-    // ✅ Default constructor
-    public SeatingPlan() {
+    private String arrangementJson;
+
+    private LocalDateTime generatedAt;
+
+    @PrePersist
+    public void onCreate() {
+        generatedAt = LocalDateTime.now();
     }
 
-    // ✅ Parameterized constructor
-    public SeatingPlan(Long id, ExamSession examSession, ExamRoom examRoom) {
+    public SeatingPlan() {}
+
+    public SeatingPlan(Long id, ExamSession examSession, ExamRoom room, String arrangementJson) {
         this.id = id;
         this.examSession = examSession;
-        this.examRoom = examRoom;
+        this.room = room;
+        this.arrangementJson = arrangementJson;
     }
 
-    // ✅ Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ExamSession getExamSession() {
-        return examSession;
-    }
-
-    public void setExamSession(ExamSession examSession) {
-        this.examSession = examSession;
-    }
-
-    public ExamRoom getExamRoom() {
-        return examRoom;
-    }
-
-    public void setExamRoom(ExamRoom examRoom) {
-        this.examRoom = examRoom;
-    }
+    public Long getId() { return id; }
+    public ExamSession getExamSession() { return examSession; }
+    public ExamRoom getRoom() { return room; }
+    public String getArrangementJson() { return arrangementJson; }
+    public LocalDateTime getGeneratedAt() { return generatedAt; }
 }

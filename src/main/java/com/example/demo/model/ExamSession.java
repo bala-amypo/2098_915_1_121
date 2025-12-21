@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "exam_sessions")
 public class ExamSession {
 
     @Id
@@ -11,53 +12,34 @@ public class ExamSession {
     private Long id;
 
     private String courseCode;
-
-    private String examDate;
-
+    private LocalDate examDate;
     private String examTime;
 
-    // DEFAULT CONSTRUCTOR
-    public ExamSession() {
-    }
+    @ManyToMany
+    private List<Student> students;
 
-    // PARAMETERIZED CONSTRUCTOR
-    public ExamSession(Long id, String courseCode, String examDate, String examTime) {
+    public ExamSession() {}
+
+    public ExamSession(Long id, String courseCode, LocalDate examDate, String examTime, List<Student> students) {
         this.id = id;
         this.courseCode = courseCode;
         this.examDate = examDate;
         this.examTime = examTime;
+        this.students = students;
     }
 
-    // GETTERS & SETTERS
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getCourseCode() { return courseCode; }
+    public void setCourseCode(String courseCode) { this.courseCode = courseCode; }
 
-    public String getCourseCode() {
-        return courseCode;
-    }
+    public LocalDate getExamDate() { return examDate; }
+    public void setExamDate(LocalDate examDate) { this.examDate = examDate; }
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
+    public String getExamTime() { return examTime; }
+    public void setExamTime(String examTime) { this.examTime = examTime; }
 
-    public String getExamDate() {
-        return examDate;
-    }
-
-    public void setExamDate(String examDate) {
-        this.examDate = examDate;
-    }
-
-    public String getExamTime() {
-        return examTime;
-    }
-
-    public void setExamTime(String examTime) {
-        this.examTime = examTime;
-    }
+    public List<Student> getStudents() { return students; }
+    public void setStudents(List<Student> students) { this.students = students; }
 }
