@@ -32,4 +32,3 @@ public class ExamSessionServiceImpl implements ExamSessionService {
         return examSessionRepository.findAll();
     }
 }
-1`
