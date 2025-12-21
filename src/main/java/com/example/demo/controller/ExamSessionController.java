@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sessions")
@@ -15,13 +16,23 @@ public class ExamSessionController {
         this.examSessionService = examSessionService;
     }
 
-    @PostMapping
-    public ExamSession create(@RequestBody ExamSession session) {
-        return examSessionService.createSession(session);
+    @GetMapping
+    public List<ExamSession> getAll() {
+        return examSessionService.getAllSessions();
     }
 
     @GetMapping("/{id}")
-    public ExamSession get(@PathVariable Long id) {
+    public ExamSession getById(@PathVariable Long id) {
         return examSessionService.getSession(id);
+    }
+
+    @PostMapping
+    public void create(@RequestBody ExamSession session) {
+        examSessionService.saveSession(session);   // <-- use saveSession
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        examSessionService.deleteSession(id);
     }
 }
