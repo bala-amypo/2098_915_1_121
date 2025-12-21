@@ -1,3 +1,12 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.model.ExamRoom;
+import com.example.demo.service.ExamRoomService;
+
 @RestController
 @RequestMapping("/rooms")
 public class ExamRoomController {
@@ -14,7 +23,7 @@ public class ExamRoomController {
     }
 
     @GetMapping
-    public List<ExamRoom> getAll() {
+    public List<ExamRoom> getAllRooms() {
         return service.getAllRooms();
     }
 }
