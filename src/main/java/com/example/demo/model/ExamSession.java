@@ -15,9 +15,11 @@ public class ExamSession {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 private String courseCode;
+import java.time.LocalDate;
+
+@Column(name = "exam_date")
 private LocalDate examDate;
 
-private LocalDate examTime;
 
 
 @ManyToMany
