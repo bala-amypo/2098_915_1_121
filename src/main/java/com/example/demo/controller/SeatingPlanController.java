@@ -1,24 +1,23 @@
-package com.example.demo.service.impl;
+package com.example.demo.controller;
 
 import com.example.demo.model.SeatingPlan;
-import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Service
-public class SeatingPlanServiceImpl implements SeatingPlanService {
+@RestController
+@RequestMapping("/seating-plans")
+public class SeatingPlanController {
 
-    private final SeatingPlanRepository seatingPlanRepository;
+    private final SeatingPlanService seatingPlanService;
 
-    // Constructor injection (no @Autowired)
-    public SeatingPlanServiceImpl(SeatingPlanRepository seatingPlanRepository) {
-        this.seatingPlanRepository = seatingPlanRepository;
+    public SeatingPlanController(SeatingPlanService seatingPlanService) {
+        this.seatingPlanService = seatingPlanService;
     }
 
-    @Override
-    public List<SeatingPlan> getSeatingPlansByExamSessionId(Long examSessionId) {
-        return seatingPlanRepository.findByExamSessionId(examSessionId);
+    @GetMapping("/exam/{id}")
+    public List<SeatingPlan> getSeatingPlansByExamSession(@PathVariable("id") Long examSessionId) {
+        return seatingPlanService.getSeatingPlansByExamSessionId(examSessionId);
     }
 }
