@@ -7,6 +7,7 @@ import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
+
 public class AuthController {
 
     private final UserService userService;
