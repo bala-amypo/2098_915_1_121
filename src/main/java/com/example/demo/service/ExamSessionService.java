@@ -4,12 +4,7 @@ import com.example.demo.model.ExamSession;
 import java.util.List;
 
 public interface ExamSessionService {
-
+    ExamSession createSession(ExamSession session);
     List<ExamSession> getAllSessions();
-
-    ExamSession getSession(Long id);   // used for GET by ID
-
-    void saveSession(ExamSession session);  // used for CREATE/UPDATE
-
-    void deleteSession(Long id);
+    ExamSession getSession(Long id);
 }

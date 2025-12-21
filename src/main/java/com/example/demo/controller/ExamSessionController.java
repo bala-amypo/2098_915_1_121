@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,29 +11,21 @@ import java.util.List;
 @RequestMapping("/sessions")
 public class ExamSessionController {
 
-    private final ExamSessionService examSessionService;
+    @Autowired
+    private ExamSessionService examSessionService;
 
-    public ExamSessionController(ExamSessionService examSessionService) {
-        this.examSessionService = examSessionService;
+    @PostMapping
+    public ExamSession createSession(@RequestBody ExamSession session) {
+        return examSessionService.createSession(session);
     }
 
     @GetMapping
-    public List<ExamSession> getAll() {
+    public List<ExamSession> getAllSessions() {
         return examSessionService.getAllSessions();
     }
 
     @GetMapping("/{id}")
-    public ExamSession getById(@PathVariable Long id) {
+    public ExamSession getSession(@PathVariable Long id) {
         return examSessionService.getSession(id);
-    }
-
-    @PostMapping
-    public void create(@RequestBody ExamSession session) {
-        examSessionService.saveSession(session);   // <-- use saveSession
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        examSessionService.deleteSession(id);
     }
 }
