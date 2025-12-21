@@ -1,27 +1,22 @@
-package com.example.demo.service.impl;
+package com.example.demo.controller;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
-import com.example.demo.model.Student;
-import com.example.demo.repository.StudentRepository;
-import com.example.demo.service.StudentService;
+import org.springframework.web.bind.annotation.*;
 
-@Service
-public class StudentServiceImpl implements StudentService {
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
 
-    private final StudentRepository repo;
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
 
-    public StudentServiceImpl(StudentRepository repo) {
-        this.repo = repo;
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
     }
 
-    @Override
-    public Student addStudent(Student student) {
-        return repo.save(student);
-    }
-
-    @Override
-    public List<Student> getAllStudents() {
-        return repo.findAll();
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        return userService.register(user);
     }
 }
