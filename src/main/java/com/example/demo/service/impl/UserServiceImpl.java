@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
@@ -9,19 +9,22 @@ import com.example.demo.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository repo;
+    private final PasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserRepository repo, PasswordEncoder encoder) {
+        this.repo = repo;
+        this.encoder = encoder;
     }
 
     @Override
-    public User registerUser(User user) {
-        return userRepository.save(user);
+    public User register(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        return repo.save(user);
     }
 
     @Override
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
+    public User findByEmail(String email) {
+        return repo.findByEmail(email);
     }
 }
