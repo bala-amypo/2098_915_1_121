@@ -19,4 +19,9 @@ public class AuthController {
     public User register(@RequestBody User user) {
         return userService.registerUser(user);
     }
+    @GetMapping("/")
+public String root() {
+    return "Application is running";
+}
+
 }
