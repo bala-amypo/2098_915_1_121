@@ -28,6 +28,7 @@ public class StudentServiceImpl implements StudentService {
         
     }
 
+
     @Override
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
@@ -40,8 +41,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getByRollNumber(String rollNumber) {
-        // Dummy implementation to satisfy interface
-        return null;
-    }
+public Student getByRollNumber(String rollNumber) {
+    return studentRepository.findByRollNumber(rollNumber);
 }
+
+}
+
