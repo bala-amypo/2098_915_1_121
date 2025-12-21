@@ -13,8 +13,12 @@ public class ExamRoom {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 private String roomNumber;
-private Integer rows;
-private Integer columns;
+@Column(name = "room_rows")
+private int rows;
+
+@Column(name = "room_columns")
+private int columns;
+
 private Integer capacity;
 
 
