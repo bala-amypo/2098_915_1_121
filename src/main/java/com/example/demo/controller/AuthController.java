@@ -13,11 +13,7 @@ public class AuthController {
         this.userService = userService;
     }
 
-    // THIS WILL NOW MAP TO "/"
-    @GetMapping("/")
-    public String root() {
-        return "OK";
-    }
+    
 
     // This will map to "/register"
     @PostMapping("/register")
