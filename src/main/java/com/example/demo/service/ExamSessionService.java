@@ -7,9 +7,9 @@ public interface ExamSessionService {
 
     List<ExamSession> getAllSessions();
 
-    ExamSession getSession(Long id);  // MUST match in Impl
+    ExamSession getSession(Long id);   // used for GET by ID
 
-    void saveSession(ExamSession session);
+    void saveSession(ExamSession session);  // used for CREATE/UPDATE
 
     void deleteSession(Long id);
 }
