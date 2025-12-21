@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
 
@@ -8,19 +9,19 @@ import com.example.demo.service.ExamSessionService;
 @RequestMapping("/sessions")
 public class ExamSessionController {
 
-    private final ExamSessionService service;
+    private final ExamSessionService examSessionService;
 
-    public ExamSessionController(ExamSessionService service) {
-        this.service = service;
+    public ExamSessionController(ExamSessionService examSessionService) {
+        this.examSessionService = examSessionService;
     }
 
     @PostMapping
-    public ExamSession create(@RequestBody ExamSession s) {
-        return service.createSession(s);
+    public ExamSession create(@RequestBody ExamSession session) {
+        return examSessionService.createSession(session);
     }
 
     @GetMapping("/{id}")
     public ExamSession get(@PathVariable Long id) {
-        return service.getSession(id);
+        return examSessionService.getSession(id);
     }
 }
