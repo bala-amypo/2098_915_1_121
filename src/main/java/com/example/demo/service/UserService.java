@@ -1,5 +1,10 @@
 package com.example.demo.service;
 
-public class UserService {
-    
+import com.example.demo.model.User;
+
+public interface UserService {
+
+    User registerUser(User user);
+
+    User getUserByEmail(String email);
 }
