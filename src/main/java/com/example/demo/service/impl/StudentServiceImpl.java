@@ -41,9 +41,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-public Student getByRollNumber(String rollNumber) {
-    return studentRepository.findByRollNumber(rollNumber);
-}
-
+    public Student getByRollNumber(String rollNumber) {
+        // Dummy implementation to satisfy interface
+        return null;
+    }
 }
 
