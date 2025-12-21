@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import com.example.demo.exception.ApiException;
 
 @Entity
 public class ExamRoom {
@@ -16,24 +17,19 @@ public class ExamRoom {
     private Integer columns;
     private Integer capacity;
 
-    public ExamRoom() {}
-
-    public ExamRoom(Long id, String roomNumber, Integer rows, Integer columns) {
-        this.id = id;
-        this.roomNumber = roomNumber;
-        this.rows = rows;
-        this.columns = columns;
-        ensureCapacityMatches();
-    }
-
     @PrePersist
     @PreUpdate
     public void ensureCapacityMatches() {
-        if (rows != null && columns != null) {
-            this.capacity = rows * columns;
+        if (rows == null || columns == null || capacity == null) {
+            throw new ApiException("capacity invalid");
+        }
+
+        if (rows * columns != capacity) {
+            throw new ApiException("capacity mismatch");
         }
     }
 
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -47,4 +43,5 @@ public class ExamRoom {
     public void setColumns(Integer columns) { this.columns = columns; }
 
     public Integer getCapacity() { return capacity; }
+    public void setCapacity(Integer capacity) { this.capacity = capacity; }
 }

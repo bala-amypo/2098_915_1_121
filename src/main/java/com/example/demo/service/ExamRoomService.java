@@ -1,9 +1,19 @@
-package com.example.demo.service;
+@Service
+public class ExamRoomServiceImpl implements ExamRoomService {
 
-import java.util.List;
-import com.example.demo.model.ExamRoom;
+    private final ExamRoomRepository repo;
 
-public interface ExamRoomService {
-    ExamRoom addRoom(ExamRoom room);
-    List<ExamRoom> getAllRooms();
+    public ExamRoomServiceImpl(ExamRoomRepository repo) {
+        this.repo = repo;
+    }
+
+    @Override
+    public ExamRoom addRoom(ExamRoom room) {
+        return repo.save(room);
+    }
+
+    @Override
+    public List<ExamRoom> getAllRooms() {
+        return repo.findAll();
+    }
 }

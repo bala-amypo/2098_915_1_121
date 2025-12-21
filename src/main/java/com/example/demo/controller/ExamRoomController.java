@@ -1,10 +1,3 @@
-package com.example.demo.controller;
-
-import java.util.List;
-import org.springframework.web.bind.annotation.*;
-import com.example.demo.model.ExamRoom;
-import com.example.demo.service.ExamRoomService;
-
 @RestController
 @RequestMapping("/rooms")
 public class ExamRoomController {
@@ -16,12 +9,12 @@ public class ExamRoomController {
     }
 
     @PostMapping
-    public ExamRoom add(@RequestBody ExamRoom room) {
+    public ExamRoom addRoom(@RequestBody ExamRoom room) {
         return service.addRoom(room);
     }
 
     @GetMapping
-    public List<ExamRoom> all() {
+    public List<ExamRoom> getAll() {
         return service.getAllRooms();
     }
 }
