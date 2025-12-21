@@ -1,45 +1,63 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "exam_sessions")
 public class ExamSession {
 
     @Id
-    private int sessionId;
-    private String subject;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String courseCode;
+
     private String examDate;
 
+    private String examTime;
+
+    // DEFAULT CONSTRUCTOR
     public ExamSession() {
     }
 
-    public ExamSession(int sessionId, String subject, String examDate) {
-        this.sessionId = sessionId;
-        this.subject = subject;
+    // PARAMETERIZED CONSTRUCTOR
+    public ExamSession(Long id, String courseCode, String examDate, String examTime) {
+        this.id = id;
+        this.courseCode = courseCode;
         this.examDate = examDate;
+        this.examTime = examTime;
     }
 
-    public int getSessionId() {
-        return sessionId;
-    }
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    // GETTERS & SETTERS
+    public Long getId() {
+        return id;
     }
 
-    public String getSubject() {
-        return subject;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public void setSubject(String subject) {
-        this.subject = subject;
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
     public String getExamDate() {
         return examDate;
     }
+
     public void setExamDate(String examDate) {
         this.examDate = examDate;
+    }
+
+    public String getExamTime() {
+        return examTime;
+    }
+
+    public void setExamTime(String examTime) {
+        this.examTime = examTime;
     }
 }

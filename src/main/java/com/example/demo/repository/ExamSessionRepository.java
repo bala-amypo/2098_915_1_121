@@ -10,3 +10,5 @@ public interface ExamSessionRepository extends JpaRepository<ExamSession, Long> 
 
     Optional<ExamSession> findByCourseCode(String courseCode);
 }
+
+
