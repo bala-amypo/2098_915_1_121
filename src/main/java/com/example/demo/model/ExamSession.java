@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "exam_sessions")
 public class ExamSession {
 
     @Id
@@ -16,12 +15,21 @@ public class ExamSession {
 
     private LocalDate examDate;
 
-    // Assuming you have a Student entity
-    @OneToMany(mappedBy = "examSession")
+    @OneToMany(mappedBy = "examSession", cascade = CascadeType.ALL)
     private List<Student> students;
 
+    // No-arg constructor
     public ExamSession() {}
 
+    // All-arg constructor
+    public ExamSession(Long id, String name, LocalDate examDate, List<Student> students) {
+        this.id = id;
+        this.name = name;
+        this.examDate = examDate;
+        this.students = students;
+    }
+
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
