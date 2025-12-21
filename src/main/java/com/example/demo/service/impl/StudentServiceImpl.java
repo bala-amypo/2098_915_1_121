@@ -1,22 +1,29 @@
-package com.example.demo.controller;
+package com.example.demo.service.impl;
 
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import com.example.demo.model.User;
-import com.example.demo.service.UserService;
+import org.springframework.stereotype.Service;
 
-@RestController
-@RequestMapping("/auth")
-public class AuthController {
+import com.example.demo.model.Student;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.service.StudentService;
 
-    private final UserService userService;
+@Service
+public class StudentServiceImpl implements StudentService {
 
-    public AuthController(UserService userService) {
-        this.userService = userService;
+    private final StudentRepository studentRepository;
+
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.register(user);
+    @Override
+    public Student addStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 }
