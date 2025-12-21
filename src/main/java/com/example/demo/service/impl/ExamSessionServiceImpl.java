@@ -11,7 +11,7 @@ public class ExamSessionServiceImpl implements ExamSessionService {
 
     private final ExamSessionRepository examSessionRepository;
 
-    // Constructor injection (no @Autowired needed)
+    // Constructor injection
     public ExamSessionServiceImpl(ExamSessionRepository examSessionRepository) {
         this.examSessionRepository = examSessionRepository;
     }
@@ -22,7 +22,7 @@ public class ExamSessionServiceImpl implements ExamSessionService {
     }
 
     @Override
-    public ExamSession getSessionById(Long id) {
+    public ExamSession getSession(Long id) {   // MATCHES INTERFACE
         return examSessionRepository.findById(id).orElse(null);
     }
 
@@ -34,14 +34,5 @@ public class ExamSessionServiceImpl implements ExamSessionService {
     @Override
     public void deleteSession(Long id) {
         examSessionRepository.deleteById(id);
-    }
-
-    // Example usage of getStudents() & getExamDate()
-    public void printSessionInfo(Long id) {
-        ExamSession session = getSessionById(id);
-        if (session != null) {
-            System.out.println("Exam Date: " + session.getExamDate());
-            System.out.println("Students: " + session.getStudents());
-        }
     }
 }
