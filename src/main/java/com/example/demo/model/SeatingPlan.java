@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Student {
+public class SeatingPlan {
 
     @Id
     private Long id;
@@ -12,10 +12,10 @@ public class Student {
     private String department;
     private int year;
 
-    public Student() {
+    public SeatingPlan() {
     }
 
-    public Student(Long id, String name, String department, int year) {
+    public SeatingPlan(Long id, String name, String department, int year) {
         this.id = id;
         this.name = name;
         this.department = department;
