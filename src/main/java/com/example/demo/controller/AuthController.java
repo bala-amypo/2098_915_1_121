@@ -11,12 +11,14 @@ public class AuthController {
 
     private final UserService userService;
 
+    // Constructor
     public AuthController(UserService userService) {
         this.userService = userService;
     }
 
+    // Register user (NO SECURITY, SIMPLE SAVE)
     @PostMapping("/register")
     public User register(@RequestBody User user) {
-        return userService.register(user);
+        return userService.save(user);   // ✅ FIX IS HERE
     }
 }
