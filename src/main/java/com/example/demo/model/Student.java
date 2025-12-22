@@ -1,5 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,26 +12,32 @@ public class Student {
 
     private String name;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "exam_session_id")
     private ExamSession examSession;
 
-    // ===== Constructors =====
-    public Student() { }
-
-    public Student(String name, ExamSession examSession) {
-        this.name = name;
-        this.examSession = examSession;
+    public Long getId() {
+        return id;
     }
 
-    // ===== Getters & Setters =====
-    public Long getId() { return id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public ExamSession getExamSession() { return examSession; }
+    public ExamSession getExamSession() {
+        return examSession;
+    }
 
-    public void setExamSession(ExamSession examSession) { this.examSession = examSession; }
+    public void setExamSession(ExamSession examSession) {
+        this.examSession = examSession;
+    }
 }

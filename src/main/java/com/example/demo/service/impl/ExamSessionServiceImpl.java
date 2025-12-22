@@ -1,30 +1,27 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.ExamSession;
+import com.example.demo.entity.ExamSession;
+import com.example.demo.entity.Student;
 import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.service.ExamSessionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class ExamSessionServiceImpl implements ExamSessionService {
 
-    @Autowired
-    private ExamSessionRepository repository;
+    private final ExamSessionRepository sessionRepository;
 
-    @Override
-    public ExamSession createSession(ExamSession session) {
-        return repository.save(session);
+    public ExamSessionServiceImpl(ExamSessionRepository sessionRepository) {
+        this.sessionRepository = sessionRepository;
     }
 
     @Override
-    public List<ExamSession> getAllSessions() {
-        return repository.findAll();
-    }
-
-    @Override
-    public ExamSession getSession(Long id) {
-        return repository.findById(id).orElse(null);
+    public ExamSession saveSession(ExamSession session) {
+        if (session.getStudents() != null) {
+            for (Student student : session.getStudents()) {
+                student.setExamSession(session);
+            }
+        }
+        return sessionRepository.save(session);
     }
 }

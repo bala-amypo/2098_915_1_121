@@ -1,10 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ExamSession;
-import java.util.List;
+import com.example.demo.entity.ExamSession;
 
 public interface ExamSessionService {
-    ExamSession createSession(ExamSession session);
-    List<ExamSession> getAllSessions();
-    ExamSession getSession(Long id);
+    ExamSession saveSession(ExamSession session);
 }
