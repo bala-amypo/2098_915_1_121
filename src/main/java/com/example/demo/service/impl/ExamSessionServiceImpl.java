@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.ExamSession;
-import com.example.demo.entity.Student;
+import com.example.demo.model.ExamSession;
+import com.example.demo.model.Student;
 import com.example.demo.repository.ExamSessionRepository;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.stereotype.Service;
@@ -9,19 +9,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExamSessionServiceImpl implements ExamSessionService {
 
-    private final ExamSessionRepository sessionRepository;
+    private final ExamSessionRepository repo;
 
-    public ExamSessionServiceImpl(ExamSessionRepository sessionRepository) {
-        this.sessionRepository = sessionRepository;
+    public ExamSessionServiceImpl(ExamSessionRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public ExamSession saveSession(ExamSession session) {
         if (session.getStudents() != null) {
-            for (Student student : session.getStudents()) {
-                student.setExamSession(session);
+            for (Student s : session.getStudents()) {
+                s.setExamSession(session);
             }
         }
-        return sessionRepository.save(session);
+        return repo.save(session);
     }
 }

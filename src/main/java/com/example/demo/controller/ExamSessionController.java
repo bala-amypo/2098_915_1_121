@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.ExamSession;
+import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/sessions")
 public class ExamSessionController {
 
-    private final ExamSessionService sessionService;
+    private final ExamSessionService service;
 
-    public ExamSessionController(ExamSessionService sessionService) {
-        this.sessionService = sessionService;
+    public ExamSessionController(ExamSessionService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ExamSession createSession(@RequestBody ExamSession session) {
-        return sessionService.saveSession(session);
+    public ExamSession create(@RequestBody ExamSession session) {
+        return service.saveSession(session);
     }
 }
