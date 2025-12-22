@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.SeatingPlan;
+import com.example.demo.model.SeatingPlan;
 import com.example.demo.service.SeatingPlanService;
 import org.springframework.web.bind.annotation.*;
 
