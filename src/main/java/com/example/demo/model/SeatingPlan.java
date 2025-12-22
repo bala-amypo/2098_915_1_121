@@ -1,14 +1,8 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
-import jakarta.persistence.*;
-
-@Entity
 public class SeatingPlan {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long examId;
     private Long studentId;
     private String seatNumber;
@@ -16,6 +10,10 @@ public class SeatingPlan {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getExamId() {
