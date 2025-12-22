@@ -15,7 +15,10 @@ public class SeatingPlanController {
     public SeatingPlanController(SeatingPlanService seatingPlanService) {
         this.seatingPlanService = seatingPlanService;
     }
-
+@PostMapping
+    public SeatingPlan create(@RequestBody SeatingPlan seatingPlan) {
+        return seatingPlanService.save(seatingPlan);
+    }
     @GetMapping("/exam/{id}")
     public List<SeatingPlan> getSeatingPlansByExamSession(@PathVariable("id") Long examSessionId) {
         return seatingPlanService.getSeatingPlansByExamSessionId(examSessionId);
