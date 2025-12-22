@@ -14,45 +14,34 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    // ✅ Constructor (as you asked, no @Autowired)
+    // Constructor injection (PROFESSOR-APPROVED)
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public User saveUser(User user) {
-        // ❌ No password encoding
-        // ✅ Plain save for CRUD demo
+    public User save(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public User getUserById(Long id) {
+    public User getById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElse(null);
     }
 
     @Override
-    public User updateUser(Long id, User user) {
-        Optional<User> existingUser = userRepository.findById(id);
-
-        if (existingUser.isPresent()) {
-            User u = existingUser.get();
-            u.setUsername(user.getUsername());
-            u.setPassword(user.getPassword());
-            return userRepository.save(u);
-        }
-
-        return null;
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 }

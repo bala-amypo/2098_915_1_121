@@ -16,41 +16,50 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String role;
+    /* ================= CONSTRUCTORS ================= */
 
+    // Empty constructor (MANDATORY for JPA)
     public User() {
     }
 
-    public Long getId() {
-        return id;
+    // Parameterized constructor
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
-    public void setId(Long id) {
+    // Full constructor
+    public User(Long id, String email, String password) {
         this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
+    /* ================= GETTERS ================= */
+
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
 
+    /* ================= SETTERS ================= */
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }
