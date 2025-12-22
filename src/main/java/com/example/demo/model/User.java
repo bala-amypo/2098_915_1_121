@@ -16,26 +16,20 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    /* ================= CONSTRUCTORS ================= */
-
-    // Empty constructor (MANDATORY for JPA)
     public User() {
     }
 
-    // Parameterized constructor
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    // Full constructor
     public User(Long id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
     }
 
-    /* ================= GETTERS ================= */
 
     public Long getId() {
         return id;
@@ -49,7 +43,6 @@ public class User {
         return password;
     }
 
-    /* ================= SETTERS ================= */
 
     public void setId(Long id) {
         this.id = id;
