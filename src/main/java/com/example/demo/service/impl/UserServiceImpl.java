@@ -14,7 +14,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    // Constructor injection (PROFESSOR-APPROVED)
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface SeatingPlanRepository extends JpaRepository<SeatingPlan, Long> {
 
-    // Corrected method name
     List<SeatingPlan> findByExamSessionId(Long examSessionId);
 }

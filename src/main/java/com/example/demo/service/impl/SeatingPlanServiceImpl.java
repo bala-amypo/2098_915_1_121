@@ -12,7 +12,6 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
 
     private final SeatingPlanRepository seatingPlanRepository;
 
-    // Constructor injection (no @Autowired)
     public SeatingPlanServiceImpl(SeatingPlanRepository seatingPlanRepository) {
         this.seatingPlanRepository = seatingPlanRepository;
     }
