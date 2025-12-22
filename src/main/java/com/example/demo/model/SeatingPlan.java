@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
@@ -9,44 +9,55 @@ public class SeatingPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long examId;
-    private Long studentId;
-    private String seatNumber;
-    private String roomNumber;
+    @ManyToOne
+    @JoinColumn(name = "exam_session_id")
+    private ExamSession examSession;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private ExamRoom examRoom;
+
+    private int seatNumber;
+
+    public SeatingPlan() {}
 
     public Long getId() {
         return id;
     }
 
-    public Long getExamId() {
-        return examId;
+    public ExamSession getExamSession() {
+        return examSession;
     }
 
-    public void setExamId(Long examId) {
-        this.examId = examId;
+    public void setExamSession(ExamSession examSession) {
+        this.examSession = examSession;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getSeatNumber() {
+    public ExamRoom getExamRoom() {
+        return examRoom;
+    }
+
+    public void setExamRoom(ExamRoom examRoom) {
+        this.examRoom = examRoom;
+    }
+
+    public int getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(String seatNumber) {
+    public void setSeatNumber(int seatNumber) {
         this.seatNumber = seatNumber;
-    }
-
-    public String getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
     }
 }
