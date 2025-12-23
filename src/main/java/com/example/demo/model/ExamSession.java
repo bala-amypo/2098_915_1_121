@@ -13,7 +13,7 @@ public class ExamSession {
 
     private String name;
 
-    @JsonManagedReference
+    
     @OneToMany(mappedBy = "examSession", cascade = CascadeType.ALL)
     private List<Student> students;
 

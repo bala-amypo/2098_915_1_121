@@ -12,7 +12,6 @@ public class Student {
 
     private String name;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "exam_session_id")
     private ExamSession examSession;
