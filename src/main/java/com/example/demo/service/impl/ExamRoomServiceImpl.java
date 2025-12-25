@@ -1,32 +1,35 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
-
 import com.example.demo.exception.ApiException;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.repository.ExamRoomRepository;
 import com.example.demo.service.ExamRoomService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ExamRoomServiceImpl implements ExamRoomService {
 
-    private final ExamRoomRepository examRoomRepository;
+    private final ExamRoomRepository repository;
 
-    public ExamRoomServiceImpl(ExamRoomRepository examRoomRepository) {
-        this.examRoomRepository = examRoomRepository;
+    public ExamRoomServiceImpl(ExamRoomRepository repository) {
+        this.repository = repository;
     }
 
     public ExamRoom addRoom(ExamRoom room) {
-        if (examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()) {
-            throw new ApiException("exists");
+        if (repository.existsByRoomNumber(room.getRoomNumber())) {
+            throw new ApiException("exists", 409);
         }
-
-        room.ensureCapacityMatches();
-        return examRoomRepository.save(room);
+        return repository.save(room);
     }
 
     public List<ExamRoom> getAllRooms() {
-        return examRoomRepository.findAll();
+        return repository.findAll();
+    }
+
+    public ExamRoom getRoomById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ApiException("no room", 404));
     }
 }
