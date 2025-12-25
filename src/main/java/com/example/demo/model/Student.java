@@ -3,17 +3,30 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "students", uniqueConstraints = @UniqueConstraint(columnNames = "rollNumber"))
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String rollNumber;
+
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "exam_session_id")
-    private ExamSession examSession;
+    private String department;
+
+    private Integer year;
+
+    public Student() {}
+
+    public Student(String rollNumber, String name, String department, Integer year) {
+        this.rollNumber = rollNumber;
+        this.name = name;
+        this.department = department;
+        this.year = year;
+    }
 
     public Long getId() {
         return id;
@@ -21,6 +34,14 @@ public class Student {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRollNumber() {
+        return rollNumber;
+    }
+
+    public void setRollNumber(String rollNumber) {
+        this.rollNumber = rollNumber;
     }
 
     public String getName() {
@@ -31,11 +52,19 @@ public class Student {
         this.name = name;
     }
 
-    public ExamSession getExamSession() {
-        return examSession;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setExamSession(ExamSession examSession) {
-        this.examSession = examSession;
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 }
