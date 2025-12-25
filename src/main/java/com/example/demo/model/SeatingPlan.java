@@ -1,8 +1,10 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "seating_plans")
 public class SeatingPlan {
 
     @Id
@@ -10,16 +12,35 @@ public class SeatingPlan {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "exam_session_id")
     private ExamSession examSession;
 
-    private String seatLabel;
+    @ManyToOne
+    private ExamRoom room;
 
-    public SeatingPlan() {
+    @Lob
+    private String arrangementJson;
+
+    private LocalDateTime generatedAt;
+
+    public SeatingPlan() {}
+
+    public SeatingPlan(ExamSession examSession, ExamRoom room, String arrangementJson) {
+        this.examSession = examSession;
+        this.room = room;
+        this.arrangementJson = arrangementJson;
+    }
+
+    @PrePersist
+    public void onCreate() {
+        this.generatedAt = LocalDateTime.now();
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public ExamSession getExamSession() {
@@ -30,11 +51,27 @@ public class SeatingPlan {
         this.examSession = examSession;
     }
 
-    public String getSeatLabel() {
-        return seatLabel;
+    public ExamRoom getRoom() {
+        return room;
     }
 
-    public void setSeatLabel(String seatLabel) {
-        this.seatLabel = seatLabel;
+    public void setRoom(ExamRoom room) {
+        this.room = room;
+    }
+
+    public String getArrangementJson() {
+        return arrangementJson;
+    }
+
+    public void setArrangementJson(String arrangementJson) {
+        this.arrangementJson = arrangementJson;
+    }
+
+    public LocalDateTime getGeneratedAt() {
+        return generatedAt;
+    }
+
+    public void setGeneratedAt(LocalDateTime generatedAt) {
+        this.generatedAt = generatedAt;
     }
 }

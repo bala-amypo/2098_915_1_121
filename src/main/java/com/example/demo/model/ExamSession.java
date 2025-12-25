@@ -1,20 +1,39 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
+@Table(name = "exam_sessions")
 public class ExamSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String courseCode;
 
-    
-    @OneToMany(mappedBy = "examSession", cascade = CascadeType.ALL)
-    private List<Student> students;
+    private LocalDate examDate;
+
+    private String examTime;
+
+    @ManyToMany
+    @JoinTable(
+            name = "exam_session_students",
+            joinColumns = @JoinColumn(name = "session_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<Student> students;
+
+    public ExamSession() {}
+
+    public ExamSession(String courseCode, LocalDate examDate, String examTime, Set<Student> students) {
+        this.courseCode = courseCode;
+        this.examDate = examDate;
+        this.examTime = examTime;
+        this.students = students;
+    }
 
     public Long getId() {
         return id;
@@ -24,19 +43,35 @@ public class ExamSession {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
-    public List<Student> getStudents() {
+    public LocalDate getExamDate() {
+        return examDate;
+    }
+
+    public void setExamDate(LocalDate examDate) {
+        this.examDate = examDate;
+    }
+
+    public String getExamTime() {
+        return examTime;
+    }
+
+    public void setExamTime(String examTime) {
+        this.examTime = examTime;
+    }
+
+    public Set<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 }
