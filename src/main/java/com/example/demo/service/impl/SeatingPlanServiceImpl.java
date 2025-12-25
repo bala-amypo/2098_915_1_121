@@ -1,21 +1,10 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
 import com.example.demo.model.SeatingPlan;
-import com.example.demo.repository.SeatingPlanRepository;
-import com.example.demo.service.SeatingPlanService;
-import org.springframework.stereotype.Service;
 
-@Service
-public class SeatingPlanServiceImpl implements SeatingPlanService {
+import java.util.List;
 
-    private final SeatingPlanRepository repository;
-
-    public SeatingPlanServiceImpl(SeatingPlanRepository repository) {
-        this.repository = repository;
-    }
-
-    @Override
-    public SeatingPlan save(SeatingPlan seatingPlan) {
-        return repository.save(seatingPlan);
-    }
+public interface SeatingPlanService {
+    SeatingPlan generatePlan(Long sessionId, Long roomId);
+    List<SeatingPlan> getPlansBySession(Long sessionId);
 }
