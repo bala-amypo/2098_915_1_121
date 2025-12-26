@@ -2,10 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.model.ExamSession;
 
-import java.util.List;
-
 public interface ExamSessionService {
+
     ExamSession createSession(ExamSession session);
-    List<ExamSession> getAllSessions();
-    ExamSession getSessionById(Long id);
+
+    ExamSession getSession(Long sessionId);
 }
