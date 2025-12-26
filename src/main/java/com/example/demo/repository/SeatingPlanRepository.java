@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface SeatingPlanRepository extends JpaRepository<SeatingPlan, Long> {
 
-    List<SeatingPlan> findBySessionId(Long sessionId);
+    List<SeatingPlan> findByExamSessionId(long examSessionId);
 }
+

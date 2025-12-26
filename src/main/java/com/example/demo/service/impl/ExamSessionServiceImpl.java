@@ -7,33 +7,34 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service   // 🔥 VERY IMPORTANT
+@Service
 public class ExamSessionServiceImpl implements ExamSessionService {
 
-    private final ExamSessionRepository repository;
+    private ExamSessionRepository sessionRepo;
+    private StudentRepository studentRepo;
 
-    // Default constructor (needed for Spring)
-    public ExamSessionServiceImpl() {
-        this.repository = null;
-    }
+    // REQUIRED by Spring
+    public ExamSessionServiceImpl() {}
 
-    // Constructor used in tests
-    public ExamSessionServiceImpl(ExamSessionRepository repository) {
-        this.repository = repository;
+    // REQUIRED by TEST CASES
+    public ExamSessionServiceImpl(ExamSessionRepository sessionRepo,
+                                  StudentRepository studentRepo) {
+        this.sessionRepo = sessionRepo;
+        this.studentRepo = studentRepo;
     }
 
     @Override
     public ExamSession createSession(ExamSession session) {
-        return repository.save(session);
+        return sessionRepo.save(session);
     }
 
     @Override
     public ExamSession getSession(Long id) {
-        return repository.findById(id).orElse(null);
+        return sessionRepo.findById(id).orElse(null);
     }
 
     @Override
     public List<ExamSession> getAllSessions() {
-        return repository.findAll();
+        return sessionRepo.findAll();
     }
 }

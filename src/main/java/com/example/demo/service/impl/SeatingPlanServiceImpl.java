@@ -10,25 +10,37 @@ import java.util.List;
 @Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
-    private final SeatingPlanRepository repo;
+    private ExamSessionRepository sessionRepo;
+    private SeatingPlanRepository planRepo;
+    private ExamRoomRepository roomRepo;
 
-    public SeatingPlanServiceImpl(SeatingPlanRepository repo) {
-        this.repo = repo;
+    // REQUIRED
+    public SeatingPlanServiceImpl() {}
+
+    // REQUIRED BY TESTS
+    public SeatingPlanServiceImpl(ExamSessionRepository sessionRepo,
+                                  SeatingPlanRepository planRepo,
+                                  ExamRoomRepository roomRepo) {
+        this.sessionRepo = sessionRepo;
+        this.planRepo = planRepo;
+        this.roomRepo = roomRepo;
     }
 
     @Override
     public SeatingPlan generatePlan(Long sessionId) {
         SeatingPlan plan = new SeatingPlan();
-        return repo.save(plan);
+        plan.setSessionId(sessionId);
+        return planRepo.save(plan);
     }
 
     @Override
     public SeatingPlan getPlan(Long sessionId) {
-        return repo.findAll().stream().findFirst().orElse(null);
+        return planRepo.findByExamSessionId(sessionId)
+                .stream().findFirst().orElse(null);
     }
 
     @Override
     public List<SeatingPlan> getPlansBySession(Long sessionId) {
-        return repo.findAll();
+        return planRepo.findByExamSessionId(sessionId);
     }
 }
