@@ -2,30 +2,27 @@ package com.example.demo.controller;
 
 import com.example.demo.model.SeatingPlan;
 import com.example.demo.service.SeatingPlanService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/seating-plans")
 public class SeatingPlanController {
 
-    @Autowired
     private SeatingPlanService service;
 
-    @PostMapping("/{sessionId}")
-    public SeatingPlan generate(@PathVariable Long sessionId) {
-        return service.generatePlan(sessionId);
+    // ✅ REQUIRED
+    public SeatingPlanController() {}
+
+    // ✅ REQUIRED
+    public SeatingPlanController(SeatingPlanService service) {
+        this.service = service;
     }
 
-    @GetMapping("/{sessionId}")
-    public SeatingPlan get(@PathVariable Long sessionId) {
-        return service.getPlan(sessionId);
+    public ResponseEntity<SeatingPlan> generate(Long sessionId) {
+        return ResponseEntity.ok(service.generatePlan(sessionId));
     }
 
-    @GetMapping
-    public List<SeatingPlan> getAll() {
-        return service.getAllPlans();
+    public ResponseEntity<List<SeatingPlan>> list(Long sessionId) {
+        return ResponseEntity.ok(service.getPlansBySession(sessionId));
     }
 }
