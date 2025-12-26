@@ -2,7 +2,7 @@ package com.example.demo.exception;
 
 public class ApiException extends RuntimeException {
 
-    private int status;
+    private final int status;
 
     public ApiException(String message, int status) {
         super(message);
