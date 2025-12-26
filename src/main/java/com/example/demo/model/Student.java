@@ -1,34 +1,50 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-
-@Entity
 public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private long id;
+    private String name;
     private String rollNumber;
-    private int year;
+    private String department;
 
-    public Long getId() {
-        return id;
+    public Student() {}
+
+    public static Student builder() {
+        return new Student();
     }
 
-    public String getRollNumber() {
-        return rollNumber;
+    public Student id(long id) {
+        this.id = id;
+        return this;
     }
 
-    public int getYear() {
-        return year;
+    public Student name(String name) {
+        this.name = name;
+        return this;
     }
 
-    public void setRollNumber(String rollNumber) {
+    public Student rollNumber(String rollNumber) {
         this.rollNumber = rollNumber;
+        return this;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public Student department(String department) {
+        this.department = department;
+        return this;
     }
+
+    public Student build() {
+        return this;
+    }
+
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getRollNumber() { return rollNumber; }
+    public void setRollNumber(String rollNumber) { this.rollNumber = rollNumber; }
+
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
 }
