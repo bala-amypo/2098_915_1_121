@@ -18,12 +18,12 @@ public class JWTTokenProvider {
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
-    public String getEmailFromToken(String token) {
+    public String getUsernameFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
