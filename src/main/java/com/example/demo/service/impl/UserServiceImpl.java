@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User register(User user) {
+        return user;
+    }
+
+    @Override
     public Optional<User> findByEmail(String email) {
         return userRepository == null
                 ? Optional.empty()

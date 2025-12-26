@@ -13,6 +13,11 @@ public class ExamSessionServiceImpl implements ExamSessionService {
                                   StudentRepository s) {}
 
     @Override
+    public ExamSession createSession(ExamSession session) {
+        return session;
+    }
+
+    @Override
     public ExamSession getSession(Long id) {
         return null;
     }

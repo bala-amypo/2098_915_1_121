@@ -17,6 +17,16 @@ public class SeatingPlanServiceImpl implements SeatingPlanService {
                                   ExamRoomRepository r) {}
 
     @Override
+    public SeatingPlan generatePlan(Long sessionId) {
+        return new SeatingPlan();
+    }
+
+    @Override
+    public SeatingPlan getPlan(Long id) {
+        return new SeatingPlan();
+    }
+
+    @Override
     public List<SeatingPlan> getPlansBySession(Long sessionId) {
         return List.of();
     }
