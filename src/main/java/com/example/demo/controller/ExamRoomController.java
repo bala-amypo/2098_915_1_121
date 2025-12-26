@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ExamRoom;
 import com.example.demo.service.ExamRoomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,14 +11,16 @@ import java.util.List;
 @RequestMapping("/rooms")
 public class ExamRoomController {
 
-    private final ExamRoomService service;
-
-    public ExamRoomController(ExamRoomService service) {
-        this.service = service;
-    }
+    @Autowired
+    private ExamRoomService service;
 
     @GetMapping
-    public List<ExamRoom> getAll() {
-        return service.getAll();
+    public List<ExamRoom> getAllRooms() {
+        return service.getAllRooms();
+    }
+
+    @PostMapping
+    public ExamRoom addRoom(@RequestBody ExamRoom room) {
+        return service.addRoom(room);
     }
 }

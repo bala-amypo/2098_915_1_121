@@ -9,17 +9,17 @@ public class SeatingPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String details;
+    private Long sessionId;
 
     public Long getId() {
         return id;
     }
 
-    public String getDetails() {
-        return details;
+    public Long getSessionId() {
+        return sessionId;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 }

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.SeatingPlan;
 import com.example.demo.service.SeatingPlanService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,14 +11,21 @@ import java.util.List;
 @RequestMapping("/seating-plans")
 public class SeatingPlanController {
 
-    private final SeatingPlanService service;
+    @Autowired
+    private SeatingPlanService service;
 
-    public SeatingPlanController(SeatingPlanService service) {
-        this.service = service;
+    @PostMapping("/{sessionId}")
+    public SeatingPlan generatePlan(@PathVariable Long sessionId) {
+        return service.generatePlan(sessionId);
     }
 
-    @GetMapping
-    public List<SeatingPlan> getAll() {
-        return service.getAll();
+    @GetMapping("/{planId}")
+    public SeatingPlan getPlan(@PathVariable Long planId) {
+        return service.getPlan(planId);
+    }
+
+    @GetMapping("/session/{sessionId}")
+    public List<SeatingPlan> getPlansBySession(@PathVariable Long sessionId) {
+        return service.getPlansBySession(sessionId);
     }
 }
