@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.ExamSession;
 import com.example.demo.repository.ExamSessionRepository;
+import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,10 @@ public class ExamSessionServiceImpl implements ExamSessionService {
     private ExamSessionRepository sessionRepo;
     private StudentRepository studentRepo;
 
-    // REQUIRED by Spring
+    // ✅ REQUIRED by Spring
     public ExamSessionServiceImpl() {}
 
-    // REQUIRED by TEST CASES
+    // ✅ REQUIRED by tests
     public ExamSessionServiceImpl(ExamSessionRepository sessionRepo,
                                   StudentRepository studentRepo) {
         this.sessionRepo = sessionRepo;
