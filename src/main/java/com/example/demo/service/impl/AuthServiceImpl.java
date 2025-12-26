@@ -4,7 +4,7 @@ import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.exception.ApiException;
-import com.example.demo.model.User;   // adjust if entity package differs
+import com.example.demo.entity.User;   // adjust if model package differs
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JWTTokenProvider;
 import com.example.demo.service.AuthService;
@@ -30,22 +30,22 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse login(AuthRequest request) {
 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ApiException("Invalid email or password"));
+                .orElseThrow(() -> new ApiException("Invalid email or password", 401));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new ApiException("Invalid email or password");
+            throw new ApiException("Invalid email or password", 401);
         }
 
         String token = jwtTokenProvider.generateToken(user.getEmail());
 
-        return new AuthResponse(token);
+        return new AuthResponse(token, "Bearer");
     }
 
     @Override
-    public void register(RegisterRequest request) {
+    public AuthResponse register(RegisterRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new ApiException("Email already exists");
+            throw new ApiException("Email already exists", 400);
         }
 
         User user = new User();
@@ -53,5 +53,9 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
+
+        String token = jwtTokenProvider.generateToken(user.getEmail());
+
+        return new AuthResponse(token, "Bearer");
     }
 }
