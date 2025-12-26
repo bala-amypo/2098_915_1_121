@@ -3,13 +3,14 @@ package com.example.demo.dto;
 public class AuthResponse {
 
     private String token;
-    private String role;
+    private String type;
 
-    public AuthResponse() {}
+    public AuthResponse() {
+    }
 
-    public AuthResponse(String token, String role) {
+    public AuthResponse(String token, String type) {
         this.token = token;
-        this.role = role;
+        this.type = type;
     }
 
     public String getToken() {
@@ -20,11 +21,11 @@ public class AuthResponse {
         this.token = token;
     }
 
-    public String getRole() {
-        return role;
+    public String getType() {
+        return type;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setType(String type) {
+        this.type = type;
     }
 }
