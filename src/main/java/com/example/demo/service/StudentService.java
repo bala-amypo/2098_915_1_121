@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface StudentService {
 
-    Student save(Student student);
-    List<Student> findAll();
+    Student addStudent(Student student);     // ← controller expects this
+    List<Student> getAllStudents();          // ← controller expects this
 }

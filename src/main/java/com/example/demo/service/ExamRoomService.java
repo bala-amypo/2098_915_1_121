@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface ExamRoomService {
 
-    ExamRoom save(ExamRoom room);     // ← matches repo.save()
-    List<ExamRoom> findAll();
+    ExamRoom addRoom(ExamRoom room);     // ← controller expects this
+    List<ExamRoom> getAllRooms();        // ← controller expects this
 }

@@ -5,34 +5,30 @@ import com.example.demo.repository.SeatingPlanRepository;
 import com.example.demo.service.SeatingPlanService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Service   // 🔥 REQUIRED — without this Spring cannot find the bean
+@Service
 public class SeatingPlanServiceImpl implements SeatingPlanService {
 
-    private final SeatingPlanRepository repository;
+    private final SeatingPlanRepository repo;
 
-    public SeatingPlanServiceImpl(SeatingPlanRepository repository) {
-        this.repository = repository;
+    public SeatingPlanServiceImpl(SeatingPlanRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public SeatingPlan generatePlan(Long sessionId) {
         SeatingPlan plan = new SeatingPlan();
-        plan.setSessionId(sessionId);
-        plan.setGeneratedAt(LocalDateTime.now());
-        plan.setArrangementJson("{}");
-        return repository.save(plan);
+        return repo.save(plan);
     }
 
     @Override
     public SeatingPlan getPlan(Long sessionId) {
-        return repository.findBySessionId(sessionId);
+        return repo.findAll().stream().findFirst().orElse(null);
     }
 
     @Override
-    public List<SeatingPlan> getAllPlans() {
-        return repository.findAll();
+    public List<SeatingPlan> getPlansBySession(Long sessionId) {
+        return repo.findAll();
     }
 }

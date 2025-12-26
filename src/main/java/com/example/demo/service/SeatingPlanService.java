@@ -8,5 +8,5 @@ public interface SeatingPlanService {
     SeatingPlan generatePlan(Long sessionId);
     SeatingPlan getPlan(Long sessionId);
 
-    List<SeatingPlan> getPlansBySession(Long sessionId); // ✅ ADD THIS
+    List<SeatingPlan> getPlansBySession(Long sessionId); // ← REQUIRED
 }

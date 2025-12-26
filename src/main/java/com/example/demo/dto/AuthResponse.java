@@ -5,7 +5,11 @@ public class AuthResponse {
     private String token;
     private String type;
 
-    public AuthResponse() {
+    public AuthResponse() {}
+
+    public AuthResponse(String token) {     // ✅ THIS FIXES ERROR
+        this.token = token;
+        this.type = "Bearer";
     }
 
     public AuthResponse(String token, String type) {
@@ -17,15 +21,7 @@ public class AuthResponse {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

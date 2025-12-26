@@ -3,26 +3,26 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Student;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.StudentService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class StudentServiceImpl implements StudentService {
 
-    private StudentRepository repository;
+    private final StudentRepository repo;
 
-    public StudentServiceImpl() {}
-
-    public StudentServiceImpl(StudentRepository repository) {
-        this.repository = repository;
+    public StudentServiceImpl(StudentRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public Student add(Student student) {
-        return student;
+    public Student addStudent(Student student) {
+        return repo.save(student);
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return List.of();
+        return repo.findAll();
     }
 }
