@@ -4,8 +4,9 @@ import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.exception.ApiException;
-import com.example.demo.model.User;
+import com.example.demo.model.User;   // adjust if entity package differs
 import com.example.demo.repository.UserRepository;
+import com.example.demo.security.JWTTokenProvider;
 import com.example.demo.service.AuthService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,33 +16,42 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JWTTokenProvider jwtTokenProvider;
 
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder,
+                           JWTTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public AuthResponse register(RegisterRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new ApiException("exists", 409);
-        }
-        User user = new User(
-                request.getName(),
-                request.getEmail(),
-                passwordEncoder.encode(request.getPassword()),
-                "STAFF"
-        );
-        userRepository.save(user);
-        return new AuthResponse(null, user.getRole());
-    }
-
+    @Override
     public AuthResponse login(AuthRequest request) {
+
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ApiException("not found", 404));
+                .orElseThrow(() -> new ApiException("Invalid email or password"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new ApiException("invalid", 401);
+            throw new ApiException("Invalid email or password");
         }
-        return new AuthResponse(null, user.getRole());
+
+        String token = jwtTokenProvider.generateToken(user.getEmail());
+
+        return new AuthResponse(token);
+    }
+
+    @Override
+    public void register(RegisterRequest request) {
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new ApiException("Email already exists");
+        }
+
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        userRepository.save(user);
     }
 }
