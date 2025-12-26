@@ -1,6 +1,5 @@
 package com.example.demo.security;
 
-import com.example.demo.model.User;   
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,13 +22,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(email)
+        Object[] user = userRepository.findCredentialsByEmail(email)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found"));
 
+        String username = (String) user[0];
+        String password = (String) user[1];
+
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
+                username,
+                password,
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
         );
     }
