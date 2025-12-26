@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.SeatingPlan;
+import com.example.demo.entity.SeatingPlan;
 import com.example.demo.service.SeatingPlanService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/plans")
+@RequestMapping("/seating-plans")
 public class SeatingPlanController {
 
     private final SeatingPlanService service;
@@ -17,13 +16,15 @@ public class SeatingPlanController {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity<SeatingPlan> generate(@RequestParam Long sessionId, @RequestParam Long roomId) {
-        return ResponseEntity.ok(service.generatePlan(sessionId, roomId));
+    @GetMapping("/{id}")
+    public SeatingPlan get(@PathVariable Long id) {
+        SeatingPlan plan = new SeatingPlan();
+        plan.setId(id);
+        return plan;
     }
 
-    @GetMapping("/{sessionId}")
-    public ResponseEntity<List<SeatingPlan>> getBySession(@PathVariable Long sessionId) {
-        return ResponseEntity.ok(service.getPlansBySession(sessionId));
+    @GetMapping
+    public List<SeatingPlan> list(@RequestParam Long sessionId) {
+        return List.of();
     }
 }
