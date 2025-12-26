@@ -12,22 +12,22 @@ import java.util.Date;
 public class JWTTokenProvider {
 
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long jwtExpirationMs = 86400000; // 1 day
+    private final long jwtExpirationMs = 86400000;
 
-    public String generateToken(String email) {
+    public String generateToken(String username) {
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(username)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(key)
                 .compact();
     }
 
-    public String getEmailFromToken(String token) {
+    public String getUsernameFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
