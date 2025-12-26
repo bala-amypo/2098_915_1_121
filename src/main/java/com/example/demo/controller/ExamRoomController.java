@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.ExamRoom;
+import com.example.demo.model.ExamRoom;
 import com.example.demo.service.ExamRoomService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ public class ExamRoomController {
     }
 
     @GetMapping
-    public List<ExamRoom> list() {
+    public List<ExamRoom> getAll() {
         return service.getAll();
     }
 }

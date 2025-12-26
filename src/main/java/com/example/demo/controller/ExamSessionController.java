@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.ExamSession;
+import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ public class ExamSessionController {
     }
 
     @GetMapping("/{id}")
-    public ExamSession get(@PathVariable Long id) {
+    public ExamSession getById(@PathVariable Long id) {
         return service.getById(id);
     }
 }

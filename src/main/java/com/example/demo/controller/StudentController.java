@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Student;
+import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> list() {
+    public List<Student> getAll() {
         return service.getAll();
     }
 }

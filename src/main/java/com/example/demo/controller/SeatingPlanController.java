@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.SeatingPlan;
+import com.example.demo.model.SeatingPlan;
 import com.example.demo.service.SeatingPlanService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +16,8 @@ public class SeatingPlanController {
         this.service = service;
     }
 
-    @GetMapping("/{id}")
-    public SeatingPlan get(@PathVariable Long id) {
-        SeatingPlan plan = new SeatingPlan();
-        plan.setId(id);
-        return plan;
-    }
-
     @GetMapping
-    public List<SeatingPlan> list(@RequestParam Long sessionId) {
-        return List.of();
+    public List<SeatingPlan> getAll() {
+        return service.getAll();
     }
 }
