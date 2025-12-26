@@ -12,65 +12,60 @@
     <packaging>jar</packaging>
 
     <name>demo</name>
-    <description>Exam Seating Application</description>
 
-    <!-- ================== PROPERTIES ================== -->
-    <properties>
-        <java.version>17</java.version>
-        <spring.boot.version>3.2.0</spring.boot.version>
-        <jjwt.version>0.11.5</jjwt.version>
-    </properties>
-
-    <!-- ================== PARENT ================== -->
+    <!-- ✅ FIXED: NO VARIABLE HERE -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>${spring.boot.version}</version>
+        <version>3.2.0</version>
         <relativePath/>
     </parent>
 
-    <!-- ================== DEPENDENCIES ================== -->
+    <properties>
+        <java.version>17</java.version>
+        <jjwt.version>0.11.5</jjwt.version>
+    </properties>
+
     <dependencies>
 
-        <!-- Spring Boot Core -->
+        <!-- Spring Core -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- Spring Web -->
+        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Data JPA -->
+        <!-- JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- MySQL Driver -->
+        <!-- MySQL -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Spring Security (VERY IMPORTANT) -->
+        <!-- Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- JWT API -->
+        <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>${jjwt.version}</version>
         </dependency>
 
-        <!-- JWT Impl -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
@@ -78,7 +73,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JWT Jackson -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
@@ -86,21 +80,21 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Swagger / OpenAPI -->
+        <!-- Swagger -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.3.0</version>
         </dependency>
 
-        <!-- Lombok (for builder()) -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- Testing (JUnit + Mockito) -->
+        <!-- Tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -115,7 +109,6 @@
 
     </dependencies>
 
-    <!-- ================== BUILD ================== -->
     <build>
         <plugins>
 
@@ -129,7 +122,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <release>${java.version}</release>
+                    <release>17</release>
                 </configuration>
             </plugin>
 
