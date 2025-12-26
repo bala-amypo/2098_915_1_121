@@ -12,8 +12,9 @@ public class Student {
     private String name;
     private String department;
     private String rollNumber;
+    private int year;
 
-    public Student() {}
+    public Student(){}
 
     public Long getId(){ return id; }
     public void setId(Long id){ this.id = id; }
@@ -27,6 +28,9 @@ public class Student {
     public String getRollNumber(){ return rollNumber; }
     public void setRollNumber(String rollNumber){ this.rollNumber = rollNumber; }
 
+    public int getYear(){ return year; }
+    public void setYear(int year){ this.year = year; }
+
     public static Builder builder(){ return new Builder(); }
 
     public static class Builder {
@@ -35,6 +39,7 @@ public class Student {
         public Builder name(String n){ s.setName(n); return this; }
         public Builder department(String d){ s.setDepartment(d); return this; }
         public Builder rollNumber(String r){ s.setRollNumber(r); return this; }
+        public Builder year(int y){ s.setYear(y); return this; }
         public Student build(){ return s; }
     }
 }

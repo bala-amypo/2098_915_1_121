@@ -19,7 +19,7 @@ public class ExamSession {
     @ManyToMany
     private Set<Student> students = new HashSet<>();
 
-    public ExamSession() {}
+    public ExamSession(){}
 
     public Long getId(){ return id; }
     public void setId(Long id){ this.id = id; }
@@ -34,12 +34,13 @@ public class ExamSession {
     public void setExamTime(String examTime){ this.examTime = examTime; }
 
     public Set<Student> getStudents(){ return students; }
-    public void setStudents(Set students){ this.students = students; }
+    public void setStudents(Set<Student> students){ this.students = students; }
 
     public static Builder builder(){ return new Builder(); }
 
     public static class Builder {
         private final ExamSession s = new ExamSession();
+        public Builder id(Long id){ s.setId(id); return this; }
         public Builder courseCode(String c){ s.setCourseCode(c); return this; }
         public Builder examDate(LocalDate d){ s.setExamDate(d); return this; }
         public Builder examTime(String t){ s.setExamTime(t); return this; }

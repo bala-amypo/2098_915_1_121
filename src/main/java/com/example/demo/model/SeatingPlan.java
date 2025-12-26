@@ -7,45 +7,35 @@ import java.time.LocalDateTime;
 public class SeatingPlan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    // 🔥 THIS WAS MISSING
-    @Column(nullable = false)
     private Long sessionId;
 
-    @Column(columnDefinition = "TEXT")
-    private String arrangementJson;
+    @ManyToOne
+    private ExamSession examSession;
 
+    @ManyToOne
+    private ExamRoom room;
+
+    private String arrangementJson;
     private LocalDateTime generatedAt;
 
-    // ================= GETTERS & SETTERS =================
+    public Long getId(){ return id; }
+    public void setId(Long id){ this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getSessionId(){ return sessionId; }
+    public void setSessionId(Long sessionId){ this.sessionId = sessionId; }
 
-    public Long getSessionId() {
-        return sessionId;
-    }
+    public ExamSession getExamSession(){ return examSession; }
+    public void setExamSession(ExamSession e){ this.examSession = e; }
 
-    public void setSessionId(Long sessionId) {
-        this.sessionId = sessionId;
-    }
+    public ExamRoom getRoom(){ return room; }
+    public void setRoom(ExamRoom r){ this.room = r; }
 
-    public String getArrangementJson() {
-        return arrangementJson;
-    }
+    public String getArrangementJson(){ return arrangementJson; }
+    public void setArrangementJson(String a){ this.arrangementJson = a; }
 
-    public void setArrangementJson(String arrangementJson) {
-        this.arrangementJson = arrangementJson;
-    }
-
-    public LocalDateTime getGeneratedAt() {
-        return generatedAt;
-    }
-
-    public void setGeneratedAt(LocalDateTime generatedAt) {
-        this.generatedAt = generatedAt;
-    }
+    public LocalDateTime getGeneratedAt(){ return generatedAt; }
+    public void setGeneratedAt(LocalDateTime g){ this.generatedAt = g; }
 }
