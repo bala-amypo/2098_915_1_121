@@ -1,8 +1,16 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import com.example.demo.entity.SeatingPlan;
+import com.example.demo.model.SeatingPlan;
+import com.example.demo.service.SeatingPlanService;
+import org.springframework.stereotype.Service;
 
-public interface SeatingPlanService {
+import java.util.List;
 
-    SeatingPlan generatePlan(Long sessionId, Long roomId);
+@Service
+public class SeatingPlanServiceImpl implements SeatingPlanService {
+
+    @Override
+    public List<SeatingPlan> getAll() {
+        return List.of();
+    }
 }

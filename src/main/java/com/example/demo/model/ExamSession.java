@@ -1,18 +1,23 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import java.util.List;
 
 @Entity
-@Table(name = "exam_sessions")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ExamSession {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String sessionName;
+
+    @OneToMany
+    private List<Student> students;
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
 }
