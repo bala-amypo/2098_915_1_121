@@ -13,6 +13,7 @@ public class ExamRoom {
     @Column(nullable = false, unique = true)
     private String roomNumber;
 
+    @Column(name = "row_count")
     private Integer rows;
 
     private Integer columns;
