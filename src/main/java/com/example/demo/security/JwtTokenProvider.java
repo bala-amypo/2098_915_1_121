@@ -9,7 +9,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JWTTokenProvider {
+public class JwtTokenProvider {
 
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long jwtExpirationMs = 86400000;
