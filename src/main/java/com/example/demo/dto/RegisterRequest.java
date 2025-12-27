@@ -1,59 +1,46 @@
 package com.example.demo.dto;
 
 public class RegisterRequest {
-
     private String name;
     private String email;
     private String password;
     private String role;
-
+    
     public RegisterRequest() {}
-
-    // ===== GETTERS / SETTERS =====
-
+    
+    public RegisterRequest(String name, String email, String password, String role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+    
+    public static RegisterRequestBuilder builder() {
+        return new RegisterRequestBuilder();
+    }
+    
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
-
-    // ===== BUILDER (TESTS REQUIRE THESE METHODS) =====
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private final RegisterRequest r = new RegisterRequest();
-
-        public Builder name(String name) {
-            r.setName(name);
-            return this;
-        }
-
-        public Builder email(String email) {
-            r.setEmail(email);
-            return this;
-        }
-
-        public Builder password(String password) {
-            r.setPassword(password);
-            return this;
-        }
-
-        public Builder role(String role) {
-            r.setRole(role);
-            return this;
-        }
-
+    
+    public static class RegisterRequestBuilder {
+        private String name;
+        private String email;
+        private String password;
+        private String role;
+        
+        public RegisterRequestBuilder name(String name) { this.name = name; return this; }
+        public RegisterRequestBuilder email(String email) { this.email = email; return this; }
+        public RegisterRequestBuilder password(String password) { this.password = password; return this; }
+        public RegisterRequestBuilder role(String role) { this.role = role; return this; }
+        
         public RegisterRequest build() {
-            return r;
+            return new RegisterRequest(name, email, password, role);
         }
     }
 }

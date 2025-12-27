@@ -3,26 +3,25 @@ package com.example.demo.controller;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.service.ExamRoomService;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/rooms")
 public class ExamRoomController {
+    private final ExamRoomService examRoomService;
 
-    private ExamRoomService service;
-
-    // ✅ REQUIRED
-    public ExamRoomController() {}
-
-    // ✅ REQUIRED
-    public ExamRoomController(ExamRoomService service) {
-        this.service = service;
+    public ExamRoomController(ExamRoomService examRoomService) {
+        this.examRoomService = examRoomService;
     }
 
-    public ResponseEntity<ExamRoom> add(ExamRoom room) {
-        return ResponseEntity.ok(service.addRoom(room));
+    @PostMapping
+    public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom room) {
+        return ResponseEntity.ok(examRoomService.addRoom(room));
     }
 
+    @GetMapping
     public ResponseEntity<List<ExamRoom>> list() {
-        return ResponseEntity.ok(service.getAllRooms());
+        return ResponseEntity.ok(examRoomService.getAllRooms());
     }
 }

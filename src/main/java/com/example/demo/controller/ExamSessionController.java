@@ -3,30 +3,24 @@ package com.example.demo.controller;
 import com.example.demo.model.ExamSession;
 import com.example.demo.service.ExamSessionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@RestController
+@RequestMapping("/api/sessions")
 public class ExamSessionController {
+    private final ExamSessionService examSessionService;
 
-    private ExamSessionService service;
-
-    // ✅ REQUIRED
-    public ExamSessionController() {}
-
-    // ✅ REQUIRED
-    public ExamSessionController(ExamSessionService service) {
-        this.service = service;
+    public ExamSessionController(ExamSessionService examSessionService) {
+        this.examSessionService = examSessionService;
     }
 
-    public ResponseEntity<ExamSession> create(ExamSession session) {
-        return ResponseEntity.ok(service.createSession(session));
+    @PostMapping
+    public ResponseEntity<ExamSession> create(@RequestBody ExamSession session) {
+        return ResponseEntity.ok(examSessionService.createSession(session));
     }
 
-    public ResponseEntity<ExamSession> get(Long id) {
-        return ResponseEntity.ok(service.getSession(id));
-    }
-
-    public ResponseEntity<List<ExamSession>> list() {
-        return ResponseEntity.ok(service.getAllSessions());
+    @GetMapping("/{id}")
+    public ResponseEntity<ExamSession> get(@PathVariable Long id) {
+        return ResponseEntity.ok(examSessionService.getSession(id));
     }
 }

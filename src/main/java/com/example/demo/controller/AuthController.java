@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
+import com.example.demo.dto.*;
 import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -13,47 +12,38 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
-    private UserService userService;
-    private AuthenticationManager authenticationManager;
-    private JwtTokenProvider jwtTokenProvider;
-
-    // ✅ REQUIRED BY TESTS (no-arg constructor)
-    public AuthController() {
-    }
-
-    // ✅ REQUIRED BY TESTS (this exact constructor signature)
-    public AuthController(UserService userService,
-                          AuthenticationManager authenticationManager,
-                          JwtTokenProvider jwtTokenProvider,
-                          com.example.demo.repository.UserRepository repo) {
+    public AuthController(UserService userService, AuthenticationManager authenticationManager, 
+                         JwtTokenProvider jwtTokenProvider, UserRepository userRepository) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userRepository = userRepository;
     }
 
-    // ✅ REGISTER — tests send RegisterRequest, NOT User
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest req) {
-
-        User user = new User();
-        user.setEmail(req.getEmail());
-        user.setPassword(req.getPassword());
-        user.setRole(req.getRole());
-
+    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
+        User user = User.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .role(request.getRole())
+                .build();
         return ResponseEntity.ok(userService.register(user));
     }
 
-    // ✅ LOGIN — tests only expect token generation
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest req) {
-
-        String token = jwtTokenProvider.generateToken(
-                1L,
-                req.getEmail(),
-                "USER"
-        );
-
-        return ResponseEntity.ok(new AuthResponse(token));
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+        User user = userService.findByEmail(request.getEmail());
+        String token = jwtTokenProvider.generateToken(user.getId(), user.getEmail(), user.getRole());
+        return ResponseEntity.ok(AuthResponse.builder()
+                .token(token)
+                .email(user.getEmail())
+                .role(user.getRole())
+                .build());
     }
 }
