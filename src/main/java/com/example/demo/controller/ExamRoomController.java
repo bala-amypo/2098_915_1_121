@@ -2,29 +2,26 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ExamRoom;
 import com.example.demo.service.ExamRoomService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rooms")
-@RequiredArgsConstructor
-@Tag(name = "Rooms", description = "Exam Room Management")
+@RequestMapping("/api/rooms")
 public class ExamRoomController {
-    private final ExamRoomService service;
+    private final ExamRoomService examRoomService;
+
+    public ExamRoomController(ExamRoomService examRoomService) {
+        this.examRoomService = examRoomService;
+    }
 
     @PostMapping
-    @Operation(summary = "Add a new exam room")
-    public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom r) {
-        return ResponseEntity.ok(service.addRoom(r));
+    public ResponseEntity<ExamRoom> add(@RequestBody ExamRoom room) {
+        return ResponseEntity.ok(examRoomService.addRoom(room));
     }
 
     @GetMapping
-    @Operation(summary = "List all rooms")
     public ResponseEntity<List<ExamRoom>> list() {
-        return ResponseEntity.ok(service.getAllRooms());
+        return ResponseEntity.ok(examRoomService.getAllRooms());
     }
 }
