@@ -1,28 +1,34 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ApiException;
 import com.example.demo.model.ExamRoom;
 import com.example.demo.repository.ExamRoomRepository;
 import com.example.demo.service.ExamRoomService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class ExamRoomServiceImpl implements ExamRoomService {
+    private final ExamRoomRepository examRoomRepository;
 
-    private final ExamRoomRepository repo;
-
-    public ExamRoomServiceImpl(ExamRoomRepository repo) {
-        this.repo = repo;
+    public ExamRoomServiceImpl(ExamRoomRepository examRoomRepository) {
+        this.examRoomRepository = examRoomRepository;
     }
 
     @Override
     public ExamRoom addRoom(ExamRoom room) {
-        return repo.save(room);
+        if (room.getRows() != null && room.getRows() < 1) {
+            throw new ApiException("Rows must be positive");
+        }
+        if (examRoomRepository.findByRoomNumber(room.getRoomNumber()).isPresent()) {
+            throw new ApiException("Room already exists");
+        }
+        room.ensureCapacityMatches();
+        return examRoomRepository.save(room);
     }
 
     @Override
     public List<ExamRoom> getAllRooms() {
-        return repo.findAll();
+        return examRoomRepository.findAll();
     }
 }
