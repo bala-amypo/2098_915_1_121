@@ -4,38 +4,70 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "seating_plans")
 public class SeatingPlan {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long sessionId;
-
+    
     @ManyToOne
+    @JoinColumn(name = "exam_session_id")
     private ExamSession examSession;
-
+    
     @ManyToOne
+    @JoinColumn(name = "exam_room_id")
     private ExamRoom room;
-
+    
+    @Column(columnDefinition = "TEXT")
     private String arrangementJson;
+    
     private LocalDateTime generatedAt;
-
-    public Long getId(){ return id; }
-    public void setId(Long id){ this.id = id; }
-
-    public Long getSessionId(){ return sessionId; }
-    public void setSessionId(Long sessionId){ this.sessionId = sessionId; }
-
-    public ExamSession getExamSession(){ return examSession; }
-    public void setExamSession(ExamSession e){ this.examSession = e; }
-
-    public ExamRoom getRoom(){ return room; }
-    public void setRoom(ExamRoom r){ this.room = r; }
-
-    public String getArrangementJson(){ return arrangementJson; }
-    public void setArrangementJson(String a){ this.arrangementJson = a; }
-
-    public LocalDateTime getGeneratedAt(){ return generatedAt; }
-    public void setGeneratedAt(LocalDateTime g){ this.generatedAt = g; }
+    
+    public SeatingPlan() {}
+    
+    public SeatingPlan(ExamSession examSession, ExamRoom room, String arrangementJson, LocalDateTime generatedAt) {
+        this.examSession = examSession;
+        this.room = room;
+        this.arrangementJson = arrangementJson;
+        this.generatedAt = generatedAt;
+    }
+    
+    public static SeatingPlanBuilder builder() {
+        return new SeatingPlanBuilder();
+    }
+    
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public ExamSession getExamSession() { return examSession; }
+    public void setExamSession(ExamSession examSession) { this.examSession = examSession; }
+    public ExamRoom getRoom() { return room; }
+    public void setRoom(ExamRoom room) { this.room = room; }
+    public String getArrangementJson() { return arrangementJson; }
+    public void setArrangementJson(String arrangementJson) { this.arrangementJson = arrangementJson; }
+    public LocalDateTime getGeneratedAt() { return generatedAt; }
+    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
+    
+    public static class SeatingPlanBuilder {
+        private Long id;
+        private ExamSession examSession;
+        private ExamRoom room;
+        private String arrangementJson;
+        private LocalDateTime generatedAt;
+        
+        public SeatingPlanBuilder id(Long id) { this.id = id; return this; }
+        public SeatingPlanBuilder examSession(ExamSession examSession) { this.examSession = examSession; return this; }
+        public SeatingPlanBuilder room(ExamRoom room) { this.room = room; return this; }
+        public SeatingPlanBuilder arrangementJson(String arrangementJson) { this.arrangementJson = arrangementJson; return this; }
+        public SeatingPlanBuilder generatedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; return this; }
+        
+        public SeatingPlan build() {
+            SeatingPlan plan = new SeatingPlan();
+            plan.id = this.id;
+            plan.examSession = this.examSession;
+            plan.room = this.room;
+            plan.arrangementJson = this.arrangementJson;
+            plan.generatedAt = this.generatedAt;
+            return plan;
+        }
+    }
 }
