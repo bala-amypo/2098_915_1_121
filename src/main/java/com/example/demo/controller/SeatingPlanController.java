@@ -15,6 +15,11 @@ public class SeatingPlanController {
         this.seatingPlanService = seatingPlanService;
     }
 
+    @PostMapping("/generate/{sessionId}")
+    public SeatingPlan generate(@PathVariable Long sessionId) {
+        return seatingPlanService.generatePlan(sessionId);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<SeatingPlan> get(@PathVariable Long id) {
         return ResponseEntity.ok(seatingPlanService.getPlan(id));
